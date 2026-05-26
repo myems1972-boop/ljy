@@ -50,7 +50,10 @@ HOperatorSet.ClearDrawingObject(hv_DrawObj);
 - `HOperatorSet.GenEmptyObj(out ho_Image)` before first use of any `HObject`.
 - Image creation from raw buffers: `HOperatorSet.GenImage1Extern()` (mono) or `HOperatorSet.GenImageInterleaved()` (color RGB).
 - Shape model: `HOperatorSet.CreateScaledShapeModel(...)` → `HOperatorSet.GetShapeModelContours(...)` → `HOperatorSet.WriteShapeModel(...)`.
+- Model matching: `HOperatorSet.FindScaledShapeModel(...)` → transform contours with `VectorAngleToRigid` + `HomMat2dScale` → `DispObj`.
 - Cleanup: `HOperatorSet.ClearShapeModel(hv_ModelID)` when discarding a model.
+- `ReadShapeModel` / `WriteShapeModel` for persisting models to `.shm` files.
+- `HObject` lifecycle: always `Dispose()` temporary objects (contours, images) to avoid memory leaks.
 
 ## Camera integration (Hikvision SDK)
 
@@ -61,7 +64,33 @@ HOperatorSet.ClearDrawingObject(hv_DrawObj);
 - Pixel format handling: Mono8 passed directly; other mono formats converted via `MV_CC_ConvertPixelType_NET`; Bayer/RGB/YUV formats converted to RGB8_Packed then handled with `GenImageInterleaved`.
 - `MouseWheel` events on both forms need coordinate translation (screen → control) before forwarding to `HSmartWindowControl_MouseWheel`.
 
+## Template matching pipeline
+
+After a model is created in `FormTemplate`:
+1. Model is saved to `%TEMP%\测量2026_template.shm` and `Form1.LoadMatchModel()` is called.
+2. `Form1` loads its own copy of the model (`hv_MatchModelID`, `ho_MatchContours` at scale 1).
+3. Every frame in `ReceiveImageWorkThread`, after display, calls `FindScaledShapeModel` (angle 0-360°, scale 0.6-1.4, min score 0.5, "least_squares" subpixel).
+4. Matched contours are transformed via `VectorAngleToRigid` + `HomMat2dScale` and drawn in yellow.
+
+Thumbnail generation (`FormTemplate.GenerateAndSendThumbnail`):
+- `CropDomain` (not just `ReduceDomain`) to physically cut out the ROI region.
+- `GetShapeModelContours` at scale 1 → compute contour center → translate to cropped coords → scale to thumbnail.
+- Convert gray thumbnail to 3-channel RGB (`CopyImage` × 3), paint contours with `PaintXld` (255 on R+G = yellow), `Compose3`, then convert to .NET Bitmap.
+
+## Additional Halcon 17.12 pitfalls
+
+- **`ZoomImageSize`** requires a 5th parameter `interpolation` (e.g. `"constant"`), unlike newer versions where it's optional.
+- **`ReduceDomain`** keeps the full image matrix; use **`CropDomain`** to physically trim to the ROI.
+- **`CountChannels`** to branch between `GetImagePointer1` (gray) and `GetImagePointer3` (RGB) when converting to Bitmap.
+- **`PaintXld`** paints XLD contours onto a single-channel image with a specified gray value — for colored overlays, paint on individual R/G/B channels then `Compose3`.
+
+## Git versioning
+
+- Local git repo at `D:\claudepj\测量2026\.git`, tag `v1.10` marks the current stable state.
+- **Rollback:** `git checkout v1.10`
+- **Save new version:** commit changes, then `git tag v2.0` (or similar).
+
 ## Form lifecycle
 
-- `Form1.FormClosing` calls `bnClose_Click` which stops grabbing and closes the camera device.
+- `Form1.FormClosing` calls `bnClose_Click`, stops grabbing, closes device, and disposes the matching model (`hv_MatchModelID`, `ho_MatchContours`).
 - `FormTemplate.FormClosing` detaches any active drawing object, clears the shape model, and disposes all HObjects.

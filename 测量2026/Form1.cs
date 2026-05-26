@@ -20,6 +20,8 @@ namespace 测量2026
         HTuple hv_MatchModelID;
         HObject ho_MatchContours;
         bool m_MatchingEnabled;
+        int m_FrameCount;
+        System.Diagnostics.Stopwatch m_FpsTimer;
 
         public Form1()
         {
@@ -32,10 +34,16 @@ namespace 测量2026
             hwindow = hSmartWindowControl1.HalconWindow;
             hSmartWindowControl1.MouseWheel += HSmartWindow_MouseWheel;
 
+            HSystem.SetSystem("flush_graphic", "true");
+
             hv_MatchModelID = new HTuple();
             ho_MatchContours = new HObject();
             HOperatorSet.GenEmptyObj(out ho_MatchContours);
             m_MatchingEnabled = false;
+
+            m_FrameCount = 0;
+            m_FpsTimer = new System.Diagnostics.Stopwatch();
+            m_FpsTimer.Start();
         }
 
         private void HSmartWindow_MouseWheel(object sender, MouseEventArgs e)
@@ -182,6 +190,7 @@ namespace 测量2026
         {
             bnStartGrab.Enabled = true;
             bnStopGrab.Enabled = false;
+            Text = "测量2026";
         }
 
         private bool IsMonoPixelFormat(MyCamera.MvGvspPixelType enType)
@@ -365,6 +374,22 @@ namespace 测量2026
                         continue;
                     }
 
+                    // 匹配计算（在显示之前执行，利用上一帧显示的时间窗口）
+                    HTuple hv_MatchRow = null, hv_MatchCol = null;
+                    HTuple hv_MatchAngle = null, hv_MatchScale = null, hv_MatchScore = null;
+                    if (m_MatchingEnabled && hv_MatchModelID.Length > 0)
+                    {
+                        try
+                        {
+                            HOperatorSet.FindScaledShapeModel(Hobj, hv_MatchModelID,
+                                (new HTuple(0)).TupleRad(), (new HTuple(360)).TupleRad(),
+                                0.6, 1.4, 0.3, 1, 0.5, "least_squares",
+                                0, 0.9, out hv_MatchRow, out hv_MatchCol, out hv_MatchAngle,
+                                out hv_MatchScale, out hv_MatchScore);
+                        }
+                        catch { }
+                    }
+
                     // 显示图像到Halcon窗口
                     try
                     {
@@ -372,41 +397,44 @@ namespace 测量2026
                         hwindow.ClearWindow();
                         HOperatorSet.DispObj(Hobj, hwindow);
 
-                        if (m_MatchingEnabled && hv_MatchModelID.Length > 0)
+                        if (hv_MatchScore != null && hv_MatchScore.Length > 0)
                         {
-                            try
+                            HOperatorSet.SetColor(hwindow, "yellow");
+                            HOperatorSet.SetLineWidth(hwindow, 2);
+                            for (int i = 0; i < hv_MatchScore.Length; i++)
                             {
-                                HTuple hv_Row, hv_Col, hv_Angle, hv_Scale, hv_Score;
-                                HOperatorSet.FindScaledShapeModel(Hobj, hv_MatchModelID,
-                                    (new HTuple(0)).TupleRad(), (new HTuple(360)).TupleRad(),
-                                    0.6, 1.4, 0.5, 1, 0.5, "least_squares",
-                                    0, 0.9, out hv_Row, out hv_Col, out hv_Angle, out hv_Scale, out hv_Score);
-
-                                if (hv_Score.Length > 0)
-                                {
-                                    HOperatorSet.SetColor(hwindow, "yellow");
-                                    HOperatorSet.SetLineWidth(hwindow, 2);
-                                    for (int i = 0; i < hv_Score.Length; i++)
-                                    {
-                                        HTuple hv_HomMat2D;
-                                        HOperatorSet.VectorAngleToRigid(0, 0, 0,
-                                            hv_Row[i], hv_Col[i], hv_Angle[i], out hv_HomMat2D);
-                                        HOperatorSet.HomMat2dScale(hv_HomMat2D,
-                                            hv_Scale[i], hv_Scale[i], hv_Row[i], hv_Col[i], out hv_HomMat2D);
-                                        HObject ho_TransContours;
-                                        HOperatorSet.AffineTransContourXld(ho_MatchContours,
-                                            out ho_TransContours, hv_HomMat2D);
-                                        HOperatorSet.DispObj(ho_TransContours, hwindow);
-                                        ho_TransContours.Dispose();
-                                    }
-                                }
+                                HTuple hv_HomMat2D;
+                                HOperatorSet.VectorAngleToRigid(0, 0, 0,
+                                    hv_MatchRow[i], hv_MatchCol[i], hv_MatchAngle[i], out hv_HomMat2D);
+                                HOperatorSet.HomMat2dScale(hv_HomMat2D,
+                                    hv_MatchScale[i], hv_MatchScale[i],
+                                    hv_MatchRow[i], hv_MatchCol[i], out hv_HomMat2D);
+                                HObject ho_TransContours;
+                                HOperatorSet.AffineTransContourXld(ho_MatchContours,
+                                    out ho_TransContours, hv_HomMat2D);
+                                HOperatorSet.DispObj(ho_TransContours, hwindow);
+                                ho_TransContours.Dispose();
                             }
-                            catch { }
                         }
+
+                        HOperatorSet.FlushBuffer(hwindow);
                     }
                     catch (Exception ex)
                     {
                         MessageBox.Show(ex.ToString());
+                    }
+
+                    // FPS计数
+                    m_FrameCount++;
+                    if (m_FpsTimer.ElapsedMilliseconds >= 1000)
+                    {
+                        double fps = m_FrameCount * 1000.0 / m_FpsTimer.ElapsedMilliseconds;
+                        m_FrameCount = 0;
+                        m_FpsTimer.Restart();
+                        BeginInvoke((Action)(() =>
+                        {
+                            Text = string.Format("测量2026 - FPS: {0:F1}", fps);
+                        }));
                     }
 
                     device.MV_CC_FreeImageBuffer_NET(ref stFrameOut);
