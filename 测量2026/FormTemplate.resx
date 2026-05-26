@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+
+  <!-- hSmartWindowControl1 -->
+  <data name="hSmartWindowControl1.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
+    <value>GrowAndShrink</value>
+  </data>
+  <data name="hSmartWindowControl1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 6</value>
+  </data>
+  <data name="hSmartWindowControl1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="hSmartWindowControl1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>640, 480</value>
+  </data>
+  <data name="hSmartWindowControl1.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;hSmartWindowControl1.Name" xml:space="preserve">
+    <value>hSmartWindowControl1</value>
+  </data>
+  <data name="&gt;&gt;hSmartWindowControl1.Type" xml:space="preserve">
+    <value>HalconDotNet.HSmartWindowControl, halcondotnet, Version=17.12.0.0, Culture=neutral, PublicKeyToken=4973bed59ddbf2b8</value>
+  </data>
+  <data name="&gt;&gt;hSmartWindowControl1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;hSmartWindowControl1.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+
+  <!-- groupBox1 -->
+  <data name="groupBox1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>655, 6</value>
+  </data>
+  <data name="groupBox1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>185, 480</value>
+  </data>
+  <data name="groupBox1.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="groupBox1.Text" xml:space="preserve">
+    <value>模板操作</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.Name" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+
+  <!-- bnGrabImage -->
+  <data name="bnGrabImage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 25</value>
+  </data>
+  <data name="bnGrabImage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>155, 35</value>
+  </data>
+  <data name="bnGrabImage.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="bnGrabImage.Text" xml:space="preserve">
+    <value>抓取图像</value>
+  </data>
+  <data name="&gt;&gt;bnGrabImage.Name" xml:space="preserve">
+    <value>bnGrabImage</value>
+  </data>
+  <data name="&gt;&gt;bnGrabImage.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;bnGrabImage.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;bnGrabImage.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+
+  <!-- bnDrawROI -->
+  <data name="bnDrawROI.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="bnDrawROI.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 80</value>
+  </data>
+  <data name="bnDrawROI.Size" type="System.Drawing.Size, System.Drawing">
+    <value>155, 35</value>
+  </data>
+  <data name="bnDrawROI.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="bnDrawROI.Text" xml:space="preserve">
+    <value>绘制ROI</value>
+  </data>
+  <data name="&gt;&gt;bnDrawROI.Name" xml:space="preserve">
+    <value>bnDrawROI</value>
+  </data>
+  <data name="&gt;&gt;bnDrawROI.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;bnDrawROI.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;bnDrawROI.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+
+  <!-- bnCreateModel -->
+  <data name="bnCreateModel.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="bnCreateModel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 135</value>
+  </data>
+  <data name="bnCreateModel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>155, 35</value>
+  </data>
+  <data name="bnCreateModel.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="bnCreateModel.Text" xml:space="preserve">
+    <value>创建模板</value>
+  </data>
+  <data name="&gt;&gt;bnCreateModel.Name" xml:space="preserve">
+    <value>bnCreateModel</value>
+  </data>
+  <data name="&gt;&gt;bnCreateModel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;bnCreateModel.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;bnCreateModel.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+
+  <!-- bnSaveModel -->
+  <data name="bnSaveModel.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="bnSaveModel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 190</value>
+  </data>
+  <data name="bnSaveModel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>155, 35</value>
+  </data>
+  <data name="bnSaveModel.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="bnSaveModel.Text" xml:space="preserve">
+    <value>保存模板</value>
+  </data>
+  <data name="&gt;&gt;bnSaveModel.Name" xml:space="preserve">
+    <value>bnSaveModel</value>
+  </data>
+  <data name="&gt;&gt;bnSaveModel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;bnSaveModel.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;bnSaveModel.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+
+  <!-- label1 -->
+  <data name="label1.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 240</value>
+  </data>
+  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>155, 200</value>
+  </data>
+  <data name="label1.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>步骤：
+1.点击"抓取图像"获取相机画面
+2.点击"绘制ROI"创建矩形框
+3.拖拽矩形框调整ROI位置
+4.点击"创建模板"生成模板
+5.点击"保存模板"存为.shm文件</value>
+  </data>
+  <data name="&gt;&gt;label1.Name" xml:space="preserve">
+    <value>label1</value>
+  </data>
+  <data name="&gt;&gt;label1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+
+  <!-- FormTemplate -->
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>6, 12</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>850, 496</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>模板采集</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>FormTemplate</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+</root>
