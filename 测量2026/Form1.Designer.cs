@@ -29,6 +29,8 @@ namespace 测量2026
             this.bnStopGrab = new System.Windows.Forms.Button();
             this.bnStartGrab = new System.Windows.Forms.Button();
             this.bnTemplate = new System.Windows.Forms.Button();
+            this.bnBlob = new System.Windows.Forms.Button();
+            this.bnBlobLive = new System.Windows.Forms.Button();
             this.pbTemplate = new System.Windows.Forms.PictureBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.bnGetParam = new System.Windows.Forms.Button();
@@ -117,6 +119,20 @@ namespace 测量2026
             this.pbTemplate.TabStop = false;
             this.pbTemplate.Visible = false;
             //
+            // bnBlob
+            //
+            resources.ApplyResources(this.bnBlob, "bnBlob");
+            this.bnBlob.Name = "bnBlob";
+            this.bnBlob.UseVisualStyleBackColor = true;
+            this.bnBlob.Click += new System.EventHandler(this.bnBlob_Click);
+            //
+            // bnBlobLive
+            //
+            resources.ApplyResources(this.bnBlobLive, "bnBlobLive");
+            this.bnBlobLive.Name = "bnBlobLive";
+            this.bnBlobLive.UseVisualStyleBackColor = true;
+            this.bnBlobLive.Click += new System.EventHandler(this.bnBlobLive_Click);
+            //
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.bnGetParam);
@@ -181,6 +197,8 @@ namespace 测量2026
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.bnTemplate);
+            this.Controls.Add(this.bnBlob);
+            this.Controls.Add(this.bnBlobLive);
             this.Controls.Add(this.pbTemplate);
             this.Controls.Add(this.hSmartWindowControl1);
             this.Controls.Add(this.groupBox3);
@@ -214,6 +232,8 @@ namespace 测量2026
         private Button bnGetParam;
         private HSmartWindowControl hSmartWindowControl1;
         private Button bnTemplate;
+        private Button bnBlob;
+        private Button bnBlobLive;
         private PictureBox pbTemplate;
     }
 }

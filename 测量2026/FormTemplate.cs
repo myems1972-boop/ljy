@@ -183,7 +183,7 @@ namespace 测量2026
 
                 hwindow.ClearWindow();
                 HOperatorSet.DispObj(ho_Image, hwindow);
-                HOperatorSet.SetColor(hwindow, "green");
+                HOperatorSet.SetColor(hwindow, "yellow");
                 HOperatorSet.SetDraw(hwindow, "margin");
                 HOperatorSet.SetLineWidth(hwindow, 2);
                 HOperatorSet.DispObj(ho_TransContours, hwindow);
@@ -191,9 +191,11 @@ namespace 测量2026
                 HOperatorSet.DispObj(ho_ROI, hwindow);
 
                 ho_TransContours.Dispose();
-                bnSaveModel.Enabled = true;
 
-                GenerateAndSendThumbnail();
+                // Generate thumbnail from window dump (captures rendered image + contours + ROI)
+                GenerateThumbnailFromWindow();
+
+                bnSaveModel.Enabled = true;
 
                 string tempPath = System.IO.Path.Combine(System.IO.Path.GetTempPath(), "测量2026_template.shm");
                 HOperatorSet.WriteShapeModel(hv_ModelID, tempPath);
@@ -329,7 +331,7 @@ namespace 测量2026
             }
         }
 
-        private void GenerateAndSendThumbnail()
+        private void GenerateThumbnailFromWindow()
         {
             if (!ho_ReducedImage.IsInitialized())
                 return;
@@ -351,55 +353,9 @@ namespace 测量2026
 
                 HObject ho_Thumb;
                 HOperatorSet.ZoomImageSize(ho_Cropped, out ho_Thumb, thumbW, thumbH, "constant");
+                Bitmap bmp = HImageToBitmap(ho_Thumb);
+
                 ho_Cropped.Dispose();
-
-                // Generate thumbnail with contour overlay if contours are available
-                Bitmap bmp;
-                if (ho_ModelContours.IsInitialized())
-                {
-                    // Compute contour reference point
-                    HTuple cR1, cC1, cR2, cC2;
-                    HOperatorSet.SmallestRectangle1Xld(ho_ModelContours, out cR1, out cC1, out cR2, out cC2);
-                    double refRow = ((cR2.TupleMax().D) - (cR1.TupleMin().D)) / 2;
-                    double refCol = ((cC2.TupleMax().D) - (cC1.TupleMin().D)) / 2;
-
-                    // Get ROI origin for coordinate shift
-                    HTuple roiR1, roiC1, roiR2, roiC2;
-                    HOperatorSet.SmallestRectangle1(ho_ROI, out roiR1, out roiC1, out roiR2, out roiC2);
-
-                    // Transform contours: model origin → cropped image coords → scaled to thumbnail
-                    double scaleRow = (double)thumbH / h.D;
-                    double scaleCol = (double)thumbW / w.D;
-
-                    HTuple hv_HomMat;
-                    HOperatorSet.HomMat2dIdentity(out hv_HomMat);
-                    HOperatorSet.HomMat2dTranslate(hv_HomMat, refRow - roiR1.D, refCol - roiC1.D, out hv_HomMat);
-                    HOperatorSet.HomMat2dScale(hv_HomMat, scaleRow, scaleCol, 0, 0, out hv_HomMat);
-
-                    HObject ho_ThumbContours;
-                    HOperatorSet.AffineTransContourXld(ho_ModelContours, out ho_ThumbContours, hv_HomMat);
-
-                    // Convert gray thumbnail to RGB, paint yellow contours
-                    HObject ho_R, ho_G, ho_B;
-                    HOperatorSet.CopyImage(ho_Thumb, out ho_R);
-                    HOperatorSet.CopyImage(ho_Thumb, out ho_G);
-                    HOperatorSet.CopyImage(ho_Thumb, out ho_B);
-                    HOperatorSet.PaintXld(ho_ThumbContours, ho_R, out ho_R, 255);
-                    HOperatorSet.PaintXld(ho_ThumbContours, ho_G, out ho_G, 255);
-
-                    HObject ho_RGB;
-                    HOperatorSet.Compose3(ho_R, ho_G, ho_B, out ho_RGB);
-
-                    bmp = HImageToBitmap(ho_RGB);
-
-                    ho_ThumbContours.Dispose();
-                    ho_R.Dispose(); ho_G.Dispose(); ho_B.Dispose();
-                    ho_RGB.Dispose();
-                }
-                else
-                {
-                    bmp = HImageToBitmap(ho_Thumb);
-                }
                 ho_Thumb.Dispose();
 
                 parentForm.SetTemplateThumbnail(bmp);

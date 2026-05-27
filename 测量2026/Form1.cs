@@ -20,6 +20,7 @@ namespace 测量2026
         HTuple hv_MatchModelID;
         HObject ho_MatchContours;
         bool m_MatchingEnabled;
+        bool m_BlobEnabled;
         int m_FrameCount;
         System.Diagnostics.Stopwatch m_FpsTimer;
 
@@ -145,6 +146,8 @@ namespace 测量2026
             bnGetParam.Enabled = true;
             bnSetParam.Enabled = true;
             bnTemplate.Enabled = true;
+            bnBlob.Enabled = true;
+            bnBlobLive.Enabled = true;
         }
 
         private void SetCtrlWhenClose()
@@ -158,6 +161,14 @@ namespace 测量2026
             bnGetParam.Enabled = false;
             bnSetParam.Enabled = false;
             bnTemplate.Enabled = false;
+            bnBlob.Enabled = false;
+            bnBlobLive.Enabled = false;
+            if (m_BlobEnabled)
+            {
+                m_BlobEnabled = false;
+                bnBlobLive.Text = "实时Blob";
+                bnBlobLive.BackColor = System.Drawing.SystemColors.Control;
+            }
             if (pbTemplate.Image != null)
             {
                 pbTemplate.Image.Dispose();
@@ -417,6 +428,11 @@ namespace 测量2026
                             }
                         }
 
+                        if (m_BlobEnabled)
+                        {
+                            RunBlobAnalysis(Hobj);
+                        }
+
                         HOperatorSet.FlushBuffer(hwindow);
                     }
                     catch (Exception ex)
@@ -534,10 +550,114 @@ namespace 测量2026
             }
         }
 
+        private void RunBlobAnalysis(HObject ho_Image)
+        {
+            HObject ho_Median, ho_Regions, ho_RegionClosing, ho_ConnectedRegions;
+            HObject ho_RegionFillUp, ho_Selected, ho_FinalSquare, ho_myRegion;
+            HObject ho_ImageReduced, ho_mRegions, ho_Regionopen, ho_ConnectedmRegions;
+            HObject ho_bigRegions, ho_circuRegions, ho_rectRegions;
+
+            HOperatorSet.GenEmptyObj(out ho_Median);
+            HOperatorSet.GenEmptyObj(out ho_Regions);
+            HOperatorSet.GenEmptyObj(out ho_RegionClosing);
+            HOperatorSet.GenEmptyObj(out ho_ConnectedRegions);
+            HOperatorSet.GenEmptyObj(out ho_RegionFillUp);
+            HOperatorSet.GenEmptyObj(out ho_Selected);
+            HOperatorSet.GenEmptyObj(out ho_FinalSquare);
+            HOperatorSet.GenEmptyObj(out ho_myRegion);
+            HOperatorSet.GenEmptyObj(out ho_ImageReduced);
+            HOperatorSet.GenEmptyObj(out ho_mRegions);
+            HOperatorSet.GenEmptyObj(out ho_Regionopen);
+            HOperatorSet.GenEmptyObj(out ho_ConnectedmRegions);
+            HOperatorSet.GenEmptyObj(out ho_bigRegions);
+            HOperatorSet.GenEmptyObj(out ho_circuRegions);
+            HOperatorSet.GenEmptyObj(out ho_rectRegions);
+
+            try
+            {
+                HOperatorSet.MedianImage(ho_Image, out ho_Median, "circle", 1, "mirrored");
+                HOperatorSet.Threshold(ho_Median, out ho_Regions, 100, 255);
+                HOperatorSet.ClosingCircle(ho_Regions, out ho_RegionClosing, 3);
+                HOperatorSet.Connection(ho_RegionClosing, out ho_ConnectedRegions);
+                HOperatorSet.FillUp(ho_ConnectedRegions, out ho_RegionFillUp);
+                HOperatorSet.SelectShape(ho_RegionFillUp, out ho_Selected, "area", "and", 200000, 999999);
+
+                HTuple hv_Row, hv_Column, hv_Phi, hv_Length1, hv_Length2;
+                HOperatorSet.SmallestRectangle2(ho_Selected, out hv_Row, out hv_Column,
+                    out hv_Phi, out hv_Length1, out hv_Length2);
+                HOperatorSet.GenRectangle2ContourXld(out ho_FinalSquare, hv_Row, hv_Column,
+                    hv_Phi, hv_Length1, hv_Length2);
+                HOperatorSet.GenRegionContourXld(ho_FinalSquare, out ho_myRegion, "filled");
+                HOperatorSet.ReduceDomain(ho_Image, ho_myRegion, out ho_ImageReduced);
+                HOperatorSet.Threshold(ho_ImageReduced, out ho_mRegions, 0, 40);
+                HOperatorSet.OpeningCircle(ho_mRegions, out ho_Regionopen, 7);
+                HOperatorSet.Connection(ho_Regionopen, out ho_ConnectedmRegions);
+                HOperatorSet.SelectShape(ho_ConnectedmRegions, out ho_bigRegions,
+                    "area", "and", 25000, 99999);
+                HOperatorSet.SelectShape(ho_bigRegions, out ho_circuRegions,
+                    "circularity", "and", 0.8, 1);
+                HOperatorSet.SelectShape(ho_bigRegions, out ho_rectRegions,
+                    "rectangularity", "and", 0.9, 1);
+
+                HOperatorSet.SetColor(hwindow, "blue");
+                HOperatorSet.DispObj(ho_rectRegions, hwindow);
+                HOperatorSet.SetColor(hwindow, "red");
+                HOperatorSet.DispObj(ho_circuRegions, hwindow);
+                HOperatorSet.SetColor(hwindow, "green");
+                HOperatorSet.DispObj(ho_FinalSquare, hwindow);
+
+                if (hv_Row.Length > 0)
+                {
+                    string info = "长: " + (hv_Length1[0].D * 2).ToString("F1") + "\n宽: " + (hv_Length2[0].D * 2).ToString("F1");
+                    HOperatorSet.DispText(hwindow, info, "image", 20, 20, "white", "box", "true");
+                }
+            }
+            catch { }
+            finally
+            {
+                ho_Median.Dispose();
+                ho_Regions.Dispose();
+                ho_RegionClosing.Dispose();
+                ho_ConnectedRegions.Dispose();
+                ho_RegionFillUp.Dispose();
+                ho_Selected.Dispose();
+                ho_FinalSquare.Dispose();
+                ho_myRegion.Dispose();
+                ho_ImageReduced.Dispose();
+                ho_mRegions.Dispose();
+                ho_Regionopen.Dispose();
+                ho_ConnectedmRegions.Dispose();
+                ho_bigRegions.Dispose();
+                ho_circuRegions.Dispose();
+                ho_rectRegions.Dispose();
+            }
+        }
+
+        private void bnBlobLive_Click(object sender, EventArgs e)
+        {
+            m_BlobEnabled = !m_BlobEnabled;
+            if (m_BlobEnabled)
+            {
+                bnBlobLive.Text = "停止Blob";
+                bnBlobLive.BackColor = System.Drawing.Color.LightGreen;
+            }
+            else
+            {
+                bnBlobLive.Text = "实时Blob";
+                bnBlobLive.BackColor = System.Drawing.SystemColors.Control;
+            }
+        }
+
         private void bnTemplate_Click(object sender, EventArgs e)
         {
             FormTemplate formTemplate = new FormTemplate(this);
             formTemplate.Show();
+        }
+
+        private void bnBlob_Click(object sender, EventArgs e)
+        {
+            FormBlob formBlob = new FormBlob(this);
+            formBlob.Show();
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
