@@ -65,21 +65,62 @@ namespace 测量2026
         }
 
         /// <summary>
-        /// 四级匹配流水线，返回按分数升序排列的结果
+        /// 四级匹配流水线，返回按分数升序排列的结果。
+        /// 自动尝试4种方向变体以消除 SmallestRectangle2 的轴方向歧义。
         /// </summary>
         public List<MatchResult> Match(FeatureEncoding image, List<FeatureEncoding> cadLib)
         {
+            var orientations = GenerateOrientations(image);
             List<MatchResult> results = new List<MatchResult>();
 
             foreach (var cad in cadLib)
             {
-                MatchResult r = MatchOne(image, cad);
-                r.FileName = cad.FilePath;
-                results.Add(r);
+                MatchResult best = null;
+                foreach (var imgVariant in orientations)
+                {
+                    MatchResult r = MatchOne(imgVariant, cad);
+                    r.FileName = cad.FilePath;
+                    if (best == null || r.Score < best.Score)
+                        best = r;
+                }
+                results.Add(best);
             }
 
             results.Sort((a, b) => a.Score.CompareTo(b.Score));
             return results;
+        }
+
+        /// <summary>
+        /// 生成图像编码的4种方向变体，应对 SmallestRectangle2 Phi 的 180° 歧义
+        /// 和矩形轴正方向的歧义：(cx,cy), (cx,-cy), (-cx,cy), (-cx,-cy)
+        /// </summary>
+        private List<FeatureEncoding> GenerateOrientations(FeatureEncoding image)
+        {
+            var result = new List<FeatureEncoding>();
+            int[][] signs = { new[] { 1, 1 }, new[] { 1, -1 }, new[] { -1, 1 }, new[] { -1, -1 } };
+
+            foreach (var s in signs)
+            {
+                var variant = new FeatureEncoding();
+                variant.L = image.L;
+                variant.W = image.W;
+                foreach (var f in image.features)
+                {
+                    variant.features.Add(new FeaturePoint
+                    {
+                        cx = f.cx * s[0],
+                        cy = f.cy * s[1],
+                        area = f.area,
+                        circularity = f.circularity,
+                        anisometry = f.anisometry,
+                        bulkiness = f.bulkiness,
+                        ra = f.ra,
+                        rb = f.rb
+                    });
+                }
+                result.Add(variant);
+            }
+            return result;
         }
 
         /// <summary>

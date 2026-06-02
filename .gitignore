@@ -1,7 +1,21 @@
+# Build outputs
 bin/
 obj/
+*.exe
+*.dll
+*.pdb
+
+# VS
 .vs/
 *.user
 *.suo
-*.pdb
 *.cache
+
+# NuGet
+packages/
+*.nupkg
+
+# Temp
+*.tmp
+*.shm
+readme.txt

@@ -83,7 +83,7 @@ namespace 测量2026
             HObject ho_Median, ho_Regions, ho_RegionClosing, ho_ConnectedRegions;
             HObject ho_RegionFillUp, ho_Selected, ho_FinalSquare, ho_myRegion;
             HObject ho_ImageReduced, ho_mRegions, ho_Regionopen, ho_ConnectedmRegions;
-            HObject ho_bigRegions, ho_circuRegions, ho_rectRegions;
+            HObject ho_bigRegions, ho_circuRegions, ho_rectRegions, ho_otherRegions, ho_combined;
 
             HOperatorSet.GenEmptyObj(out ho_Median);
             HOperatorSet.GenEmptyObj(out ho_Regions);
@@ -100,6 +100,8 @@ namespace 测量2026
             HOperatorSet.GenEmptyObj(out ho_bigRegions);
             HOperatorSet.GenEmptyObj(out ho_circuRegions);
             HOperatorSet.GenEmptyObj(out ho_rectRegions);
+            HOperatorSet.GenEmptyObj(out ho_otherRegions);
+            HOperatorSet.GenEmptyObj(out ho_combined);
 
             try
             {
@@ -157,9 +159,16 @@ namespace 测量2026
                 HOperatorSet.SelectShape(ho_bigRegions, out ho_rectRegions,
                     "rectangularity", "and", 0.9, 1);
 
+                // 17. 其余孔（半圆、椭圆、不规则的） → 黄色
+                HOperatorSet.Union2(ho_circuRegions, ho_rectRegions, out ho_combined);
+                HOperatorSet.Difference(ho_bigRegions, ho_combined, out ho_otherRegions);
+
                 // 显示结果
                 hwindow.ClearWindow();
                 HOperatorSet.DispObj(ho_Image, hwindow);
+
+                hwindow.SetColor("yellow");
+                HOperatorSet.DispObj(ho_otherRegions, hwindow);
 
                 hwindow.SetColor("blue");
                 HOperatorSet.DispObj(ho_rectRegions, hwindow);
@@ -187,6 +196,8 @@ namespace 测量2026
                 ho_bigRegions.Dispose();
                 ho_circuRegions.Dispose();
                 ho_rectRegions.Dispose();
+                ho_otherRegions.Dispose();
+                ho_combined.Dispose();
             }
         }
 

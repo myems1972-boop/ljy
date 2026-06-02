@@ -593,13 +593,14 @@ namespace 测量2026
                 HOperatorSet.OpeningCircle(ho_mRegions, out ho_Regionopen, 7);
                 HOperatorSet.Connection(ho_Regionopen, out ho_ConnectedmRegions);
                 HOperatorSet.SelectShape(ho_ConnectedmRegions, out ho_bigRegions,
-                    "area", "and", 25000, 99999);
+                    "area", "and", 25000, 999999);
                 HOperatorSet.SelectShape(ho_bigRegions, out ho_circuRegions,
                     "circularity", "and", 0.8, 1);
                 HOperatorSet.SelectShape(ho_bigRegions, out ho_rectRegions,
-                    "rectangularity", "and", 0.9, 1);
+                    "rectangularity", "and", 0.8, 1);
 
                 HOperatorSet.SetColor(hwindow, "blue");
+
                 HOperatorSet.DispObj(ho_rectRegions, hwindow);
                 HOperatorSet.SetColor(hwindow, "red");
                 HOperatorSet.DispObj(ho_circuRegions, hwindow);

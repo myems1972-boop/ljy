@@ -7,11 +7,15 @@ namespace 测量2026
     {
         private System.ComponentModel.IContainer components = null;
         private TextBox tbEncoding;
+        private TextBox tbConnStr;
         private Button bnLoadCAD;
         private Button bnMatch;
         private Label lbStatus;
         private Label lbBest;
         private DataGridView dgvResults;
+        private RadioButton rbFile;
+        private RadioButton rbDb;
+        private Button bnImportDwg;
         private GroupBox gbEncoding;
         private GroupBox gbResults;
 
@@ -29,7 +33,11 @@ namespace 测量2026
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMatch));
             this.tbEncoding = new System.Windows.Forms.TextBox();
             this.bnLoadCAD = new System.Windows.Forms.Button();
+            this.bnImportDwg = new System.Windows.Forms.Button();
             this.bnMatch = new System.Windows.Forms.Button();
+            this.tbConnStr = new System.Windows.Forms.TextBox();
+            this.rbFile = new System.Windows.Forms.RadioButton();
+            this.rbDb = new System.Windows.Forms.RadioButton();
             this.lbStatus = new System.Windows.Forms.Label();
             this.lbBest = new System.Windows.Forms.Label();
             this.dgvResults = new System.Windows.Forms.DataGridView();
@@ -55,12 +63,37 @@ namespace 测量2026
             this.bnLoadCAD.UseVisualStyleBackColor = true;
             this.bnLoadCAD.Click += new System.EventHandler(this.bnLoadCAD_Click);
             //
+            // bnImportDwg
+            //
+            resources.ApplyResources(this.bnImportDwg, "bnImportDwg");
+            this.bnImportDwg.Name = "bnImportDwg";
+            this.bnImportDwg.UseVisualStyleBackColor = true;
+            this.bnImportDwg.Click += new System.EventHandler(this.bnImportDwg_Click);
+            //
             // bnMatch
             //
             resources.ApplyResources(this.bnMatch, "bnMatch");
             this.bnMatch.Name = "bnMatch";
             this.bnMatch.UseVisualStyleBackColor = true;
             this.bnMatch.Click += new System.EventHandler(this.bnMatch_Click);
+            //
+            // tbConnStr
+            //
+            resources.ApplyResources(this.tbConnStr, "tbConnStr");
+            this.tbConnStr.Name = "tbConnStr";
+            //
+            // rbFile
+            //
+            resources.ApplyResources(this.rbFile, "rbFile");
+            this.rbFile.Name = "rbFile";
+            this.rbFile.Checked = true;
+            this.rbFile.CheckedChanged += new System.EventHandler(this.rbMode_CheckedChanged);
+            //
+            // rbDb
+            //
+            resources.ApplyResources(this.rbDb, "rbDb");
+            this.rbDb.Name = "rbDb";
+            this.rbDb.CheckedChanged += new System.EventHandler(this.rbMode_CheckedChanged);
             //
             // lbStatus
             //
@@ -96,7 +129,11 @@ namespace 测量2026
             // gbResults
             //
             this.gbResults.Controls.Add(this.dgvResults);
+            this.gbResults.Controls.Add(this.tbConnStr);
+            this.gbResults.Controls.Add(this.rbDb);
+            this.gbResults.Controls.Add(this.rbFile);
             this.gbResults.Controls.Add(this.bnLoadCAD);
+            this.gbResults.Controls.Add(this.bnImportDwg);
             this.gbResults.Controls.Add(this.bnMatch);
             this.gbResults.Controls.Add(this.lbStatus);
             resources.ApplyResources(this.gbResults, "gbResults");

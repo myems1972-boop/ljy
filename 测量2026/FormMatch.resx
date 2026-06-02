@@ -117,7 +117,7 @@
   </data>
 
   <data name="bnLoadCAD.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 22</value>
+    <value>12, 52</value>
   </data>
   <data name="bnLoadCAD.Size" type="System.Drawing.Size, System.Drawing">
     <value>130, 32</value>
@@ -138,14 +138,117 @@
     <value>gbResults</value>
   </data>
   <data name="&gt;&gt;bnLoadCAD.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+
+  <data name="rbFile.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="rbFile.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 21</value>
+  </data>
+  <data name="rbFile.Size" type="System.Drawing.Size, System.Drawing">
+    <value>50, 21</value>
+  </data>
+  <data name="rbFile.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="rbFile.Text" xml:space="preserve">
+    <value>文件</value>
+  </data>
+  <data name="&gt;&gt;rbFile.Name" xml:space="preserve">
+    <value>rbFile</value>
+  </data>
+  <data name="&gt;&gt;rbFile.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;rbFile.Parent" xml:space="preserve">
+    <value>gbResults</value>
+  </data>
+  <data name="&gt;&gt;rbFile.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+
+  <data name="rbDb.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="rbDb.Location" type="System.Drawing.Point, System.Drawing">
+    <value>70, 21</value>
+  </data>
+  <data name="rbDb.Size" type="System.Drawing.Size, System.Drawing">
+    <value>65, 21</value>
+  </data>
+  <data name="rbDb.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="rbDb.Text" xml:space="preserve">
+    <value>数据库</value>
+  </data>
+  <data name="&gt;&gt;rbDb.Name" xml:space="preserve">
+    <value>rbDb</value>
+  </data>
+  <data name="&gt;&gt;rbDb.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;rbDb.Parent" xml:space="preserve">
+    <value>gbResults</value>
+  </data>
+  <data name="&gt;&gt;rbDb.ZOrder" xml:space="preserve">
     <value>1</value>
+  </data>
+
+  <data name="tbConnStr.Location" type="System.Drawing.Point, System.Drawing">
+    <value>142, 19</value>
+  </data>
+  <data name="tbConnStr.Size" type="System.Drawing.Size, System.Drawing">
+    <value>358, 23</value>
+  </data>
+  <data name="tbConnStr.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;tbConnStr.Name" xml:space="preserve">
+    <value>tbConnStr</value>
+  </data>
+  <data name="&gt;&gt;tbConnStr.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tbConnStr.Parent" xml:space="preserve">
+    <value>gbResults</value>
+  </data>
+  <data name="&gt;&gt;tbConnStr.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+
+  <data name="bnImportDwg.Location" type="System.Drawing.Point, System.Drawing">
+    <value>152, 52</value>
+  </data>
+  <data name="bnImportDwg.Size" type="System.Drawing.Size, System.Drawing">
+    <value>130, 32</value>
+  </data>
+  <data name="bnImportDwg.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="bnImportDwg.Text" xml:space="preserve">
+    <value>导入DWG</value>
+  </data>
+  <data name="&gt;&gt;bnImportDwg.Name" xml:space="preserve">
+    <value>bnImportDwg</value>
+  </data>
+  <data name="&gt;&gt;bnImportDwg.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;bnImportDwg.Parent" xml:space="preserve">
+    <value>gbResults</value>
+  </data>
+  <data name="&gt;&gt;bnImportDwg.ZOrder" xml:space="preserve">
+    <value>5</value>
   </data>
 
   <data name="lbStatus.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="lbStatus.Location" type="System.Drawing.Point, System.Drawing">
-    <value>152, 28</value>
+    <value>152, 58</value>
   </data>
   <data name="lbStatus.Size" type="System.Drawing.Size, System.Drawing">
     <value>120, 17</value>
@@ -170,7 +273,7 @@
   </data>
 
   <data name="bnMatch.Location" type="System.Drawing.Point, System.Drawing">
-    <value>370, 22</value>
+    <value>370, 52</value>
   </data>
   <data name="bnMatch.Size" type="System.Drawing.Size, System.Drawing">
     <value>130, 32</value>
@@ -195,10 +298,10 @@
   </data>
 
   <data name="dgvResults.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 62</value>
+    <value>12, 92</value>
   </data>
   <data name="dgvResults.Size" type="System.Drawing.Size, System.Drawing">
-    <value>562, 526</value>
+    <value>562, 496</value>
   </data>
   <data name="dgvResults.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
