@@ -3,7 +3,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using HalconDotNet;
 
-namespace 测量2026
+namespace GridPlateInspector
 {
     public partial class FormBlob : Form
     {

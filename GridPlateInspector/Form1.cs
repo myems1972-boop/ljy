@@ -7,7 +7,7 @@ using MvCamCtrl.NET;
 using System.Runtime.InteropServices;
 using System.Threading;
 
-namespace 测量2026
+namespace GridPlateInspector
 {
     public partial class Form1 : Form
     {
@@ -201,7 +201,7 @@ namespace 测量2026
         {
             bnStartGrab.Enabled = true;
             bnStopGrab.Enabled = false;
-            Text = "测量2026";
+            Text = "GridPlateInspector";
         }
 
         private bool IsMonoPixelFormat(MyCamera.MvGvspPixelType enType)
@@ -449,7 +449,7 @@ namespace 测量2026
                         m_FpsTimer.Restart();
                         BeginInvoke((Action)(() =>
                         {
-                            Text = string.Format("测量2026 - FPS: {0:F1}", fps);
+                            Text = string.Format("GridPlateInspector - FPS: {0:F1}", fps);
                         }));
                     }
 

@@ -4,9 +4,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Build
 
-This is a C# WinForms application targeting .NET Framework 4.8. Build from Visual Studio (VS2017+) by opening `测量2026.sln` or the `.csproj` directly. No command-line build tooling is configured.
+This is a C# WinForms application targeting .NET Framework 4.8. Build from Visual Studio (VS2017+) by opening `GridPlateInspector.sln` or the `.csproj` directly. No command-line build tooling is configured.
 
-**Before rebuilding**, close any running instance of `测量2026.exe` — MSBuild cannot overwrite the output exe while it's running.
+**Before rebuilding**, close any running instance of `GridPlateInspector.exe` — MSBuild cannot overwrite the output exe while it's running.
 
 **Dependencies**: Halcon 17.12 (`halcondotnet.dll`), Hikvision MvCameraControl, `System.Web.Extensions` (JSON), `System.Configuration` (app.config), `System.Data.SqlClient` (MSSQL), **ACadSharp 3.5.7** (NuGet, DWG reading).
 
@@ -68,7 +68,7 @@ HOperatorSet.ClearDrawingObject(hv_DrawObj);
 
 ## Template matching
 
-1. `FormTemplate`: `CreateScaledShapeModel` → `GetShapeModelContours` → `WriteShapeModel` to `%TEMP%\测量2026_template.shm`.
+1. `FormTemplate`: `CreateScaledShapeModel` → `GetShapeModelContours` → `WriteShapeModel` to `%TEMP%\GridPlateInspector_template.shm`.
 2. `Form1.LoadMatchModel()` loads copy (`hv_MatchModelID`, `ho_MatchContours`).
 3. Per-frame: `FindScaledShapeModel` (0-360°, scale 0.6-1.4, min score 0.5).
 4. Transformed contours drawn in yellow via `VectorAngleToRigid` + `HomMat2dScale`.
@@ -181,5 +181,5 @@ State reset in `SetCtrlWhenClose()`.
 
 ## Git versioning
 
-- Repo: `D:\claudepj\测量2026\.git`. Tags: `v1.10`, `v1.11`, `v1.20` (current).
+- Repo: `D:\claudepj\GridPlateInspector\.git`. Tags: `v1.10`, `v1.11`, `v1.20` (current).
 - **Rollback:** `git checkout v1.20`

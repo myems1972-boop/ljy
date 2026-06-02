@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 18
 VisualStudioVersion = 18.5.11626.173 insiders
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "测量2026", "测量2026.csproj", "{8A3F2E1D-9B5C-4A7E-8D2F-1C6B3A9E4F7D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GridPlateInspector", "GridPlateInspector.csproj", "{8A3F2E1D-9B5C-4A7E-8D2F-1C6B3A9E4F7D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

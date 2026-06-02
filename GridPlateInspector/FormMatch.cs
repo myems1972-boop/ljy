@@ -5,7 +5,7 @@ using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 
-namespace 测量2026
+namespace GridPlateInspector
 {
     public partial class FormMatch : Form
     {

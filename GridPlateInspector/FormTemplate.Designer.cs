@@ -2,7 +2,7 @@ using System;
 using System.Windows.Forms;
 using HalconDotNet;
 
-namespace 测量2026
+namespace GridPlateInspector
 {
     partial class FormTemplate : Form
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 
-namespace 测量2026
+namespace GridPlateInspector
 {
     public class CadRepository : IDisposable
     {

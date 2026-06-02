@@ -4,7 +4,7 @@ using System.Drawing.Imaging;
 using System.Windows.Forms;
 using HalconDotNet;
 
-namespace 测量2026
+namespace GridPlateInspector
 {
     public partial class FormTemplate : Form
     {
@@ -197,7 +197,7 @@ namespace 测量2026
 
                 bnSaveModel.Enabled = true;
 
-                string tempPath = System.IO.Path.Combine(System.IO.Path.GetTempPath(), "测量2026_template.shm");
+                string tempPath = System.IO.Path.Combine(System.IO.Path.GetTempPath(), "GridPlateInspector_template.shm");
                 HOperatorSet.WriteShapeModel(hv_ModelID, tempPath);
                 parentForm.LoadMatchModel(tempPath);
 

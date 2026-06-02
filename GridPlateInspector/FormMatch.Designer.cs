@@ -1,7 +1,7 @@
 using System;
 using System.Windows.Forms;
 
-namespace 测量2026
+namespace GridPlateInspector
 {
     partial class FormMatch : Form
     {

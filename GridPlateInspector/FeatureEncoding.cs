@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Web.Script.Serialization;
 
-namespace 测量2026
+namespace GridPlateInspector
 {
     public class FeatureEncoding
     {

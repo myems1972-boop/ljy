@@ -5,7 +5,7 @@ using ACadSharp.Entities;
 using ACadSharp.IO;
 using CSMath;
 
-namespace 测量2026
+namespace GridPlateInspector
 {
     public static class DwgExtractor
     {

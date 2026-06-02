@@ -8,8 +8,8 @@
     <ProjectGuid>{8A3F2E1D-9B5C-4A7E-8D2F-1C6B3A9E4F7D}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>测量2026</RootNamespace>
-    <AssemblyName>测量2026</AssemblyName>
+    <RootNamespace>GridPlateInspector</RootNamespace>
+    <AssemblyName>GridPlateInspector</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
